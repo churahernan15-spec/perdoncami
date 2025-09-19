@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿ME PERDONASSSSS?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  background: #fcfcfc;
+  transition: background 0.5s ease;
+}
+.contenedor {
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+}
+.titulo h1 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #222;
+  transition: color 0.5s ease;
+  word-break: break-word;
+}
+.opciones p {
+  background: black;
+  display: inline-block;
+  padding: 20px 30px;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+  position: absolute;
+  transition: top 0.4s, left 0.4s, transform 0.4s;
+  user-select: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  white-space: nowrap;
+}
+p.p1 { top: 200px; left: 20%; }
+p.p2 { top: 200px; left: 60%; transform: scale(1); }
+p.p2:hover { background: gray; }
+#si {
+  background:#ff4d6d;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80px;
+  width: 90%;
+  max-width: 400px;
+  color: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  display: none;
+  position: absolute;
+  font-size: 22px;
+  text-align: center;
+}
+.decoracion {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/2107/2107952.png'),
+                    url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+  background-repeat: repeat;
+  background-size: 60px 60px;
+  opacity: 0.1;
+}
+@media (max-width: 500px) {
+  .titulo h1 { font-size: 22px; }
+  p.p1, p.p2 { padding: 18px 25px; font-size: 20px; border-radius: 12px; }
+  #si { font-size: 20px; padding: 20px; top: 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="decoracion"></div>
+
+<div class="contenedor">
+  <div class="titulo">
+    <h1>¿CAMILA ME PERDONASSSS? 🥹</h1>
+  </div>
+  <div class="opciones">
+    <p class="p1">No</p>
+    <p class="p2">Sí</p>
+    <h2 id="si">✨ SABÍA QUE DIRÍAS QUE SÍ ✨</h2>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const btnNo = document.querySelector('.p1');
+  const btnSi = document.querySelector('.p2');
+  const titulo = document.querySelector('.titulo h1');
+  const siMsg = document.getElementById('si');
+  let clicsNo = 0;
+  let activarEscape = false;
+  let scaleFactor = 1; // escala inicial del botón Sí
+
+  function moverBoton(){
+    siMsg.style.display = 'none';
+    const maxTop = window.innerHeight - btnNo.offsetHeight - 20;
+    const maxLeft = window.innerWidth - btnNo.offsetWidth - 20;
+    const nuevoTop = Math.random() * maxTop;
+    const nuevoLeft = Math.random() * maxLeft;
+    btnNo.style.top = nuevoTop + 'px';
+    btnNo.style.left = nuevoLeft + 'px';
+  }
+
+  btnNo.addEventListener('click', function(){
+    siMsg.style.display = 'none';
+    clicsNo++;
+
+    // Cambiar el texto del título
+    if(clicsNo === 1){
+      titulo.textContent = "¿Estás segura? 🥹";
+      document.body.style.background = '#ffe066';
+    } else if(clicsNo === 2){
+      titulo.textContent = "¿Segurísimaaaa? 🥹";
+      document.body.style.background = '#ffb347';
+    } else if(clicsNo >= 3){
+      activarEscape = true;
+      titulo.textContent = "Ándale perdóname siiii 🙏";
+      document.body.style.background = '#ff6f91';
+    }
+
+    if(activarEscape) moverBoton();
+
+    // Agrandar el botón "Sí" usando transform: scale
+    scaleFactor *= 1.2; // aumenta 20%
+    const maxScale = Math.min(window.innerWidth / btnSi.offsetWidth * 0.9, window.innerHeight / btnSi.offsetHeight * 0.6);
+    scaleFactor = Math.min(scaleFactor, maxScale);
+    btnSi.style.transform = `translateX(-50%) scale(${scaleFactor})`;
+  });
+
+  btnSi.addEventListener('click', function(){
+    siMsg.style.display = 'block';
+    document.body.style.background = '#ff4d6d';
+    titulo.textContent = "Gracias Te quiero muchoooo ❤️";
+  });
+
+});
+</script>
+
+</body>
+</html>
